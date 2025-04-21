@@ -1,9 +1,20 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
 const session = require('express-session');
 const PgSession = require('pg-session-store')(session);
+const logger = require('../utils/logger');
+
+// Global error handler
+process.on('uncaughtException', (error) => {
+  logger.error('Uncaught Exception:', error);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (error) => {
+  logger.error('Unhandled Rejection:', error);
+  process.exit(1);
+});
 
 console.log('Starting server initialization...');
 
@@ -19,7 +30,6 @@ try {
   const passport = require('../config/passport');
   console.log('Passport loaded successfully');
 
-  const logger = require('../utils/logger');
   console.log('Logger initialized');
 
   const path = require('path');
@@ -70,32 +80,19 @@ try {
   app.use(express.urlencoded({ extended: true }));
 
   // Initialize database connection
-  let pool;
-  const initializeDatabase = async () => {
-    if (!process.env.DATABASE_URL) {
-      logger.warn('DATABASE_URL not set. Database features will be unavailable.');
-      return;
-    }
+  const sequelize = require('../config/database');
 
-    try {
-      pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  // Test database connection
+  if (process.env.DATABASE_URL) {
+    sequelize.authenticate()
+      .then(() => {
+        logger.info('Database connection has been established successfully.');
+      })
+      .catch(err => {
+        logger.error('Unable to connect to the database:', err);
+        // Don't exit, just log the error
       });
-
-      // Test connection
-      const client = await pool.connect();
-      logger.info('Successfully connected to PostgreSQL');
-      client.release();
-    } catch (err) {
-      logger.error('Error connecting to PostgreSQL:', err);
-      // Don't exit, just retry later
-      setTimeout(initializeDatabase, 5000);
-    }
-  };
-
-  // Start database initialization
-  initializeDatabase();
+  }
 
   // Session configuration
   const sessionConfig = {
@@ -114,7 +111,7 @@ try {
   // Only use PostgreSQL session store if database is available
   if (process.env.DATABASE_URL) {
     sessionConfig.store = new PgSession({
-      pool: pool,
+      pool: sequelize,
       tableName: 'sessions'
     });
   } else {
@@ -160,7 +157,8 @@ try {
   app.get('/health', (req, res) => {
     const status = {
       status: 'ok',
-      database: process.env.DATABASE_URL ? 'connected' : 'not_configured'
+      database: process.env.DATABASE_URL ? 'connected' : 'not_configured',
+      timestamp: new Date().toISOString()
     };
     res.json(status);
   });
@@ -173,29 +171,22 @@ try {
   // Error handling middleware
   app.use((err, req, res, next) => {
     logger.error('Unhandled error:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ 
+      error: 'Internal server error',
+      message: err.message,
+      timestamp: new Date().toISOString()
+    });
   });
 
   // Start server
   const PORT = process.env.PORT || 3001;
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     logger.info(`Server is running on port ${PORT}`);
     logger.info('Agent settings loaded:', agentSettings);
   });
 
-  // Handle unhandled promise rejections
-  process.on('unhandledRejection', (err) => {
-    logger.error('Unhandled promise rejection:', err);
-  });
-
-  // Handle uncaught exceptions
-  process.on('uncaughtException', (err) => {
-    logger.error('Uncaught exception:', err);
-    process.exit(1);
-  });
-
   module.exports = app;
 } catch (error) {
-  console.error('Initialization error:', error);
+  logger.error('Initialization error:', error);
   process.exit(1);
 } 
