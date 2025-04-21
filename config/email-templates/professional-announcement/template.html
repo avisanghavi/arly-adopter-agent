@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{subject}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .highlight {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .feature-list {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 25px;
+        }
+        .feature-list li:before {
+            content: "•";
+            color: #2563eb;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .signature {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .signature img {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            font-size: 14px;
+            color: #666;
+        }
+        .social-links {
+            margin-top: 10px;
+        }
+        .social-links a {
+            color: #2563eb;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Dear {{recipientName}},
+        </div>
+        
+        <div class="content">
+            {{{mainContent}}}
+        </div>
+        
+        {{#if featureList}}
+        <ul class="feature-list">
+            {{#each featureList}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
+        
+        {{#if ctaButton}}
+        <a href="{{ctaButton.url}}" class="cta-button">
+            {{ctaButton.text}}
+        </a>
+        {{/if}}
+        
+        <div class="signature">
+            {{#if companyLogo}}
+            <img src="{{companyLogo}}" alt="Company Logo">
+            {{/if}}
+            <p>Kind Regards,</p>
+            <p><strong>{{senderName}}</strong><br>
+            {{senderTitle}}</p>
+            <div class="contact-info">
+                {{#if phone}}
+                <p>M: {{phone}}</p>
+                {{/if}}
+                {{#if email}}
+                <p>E: <a href="mailto:{{email}}">{{email}}</a></p>
+                {{/if}}
+            </div>
+            {{#if socialLinks}}
+            <div class="social-links">
+                {{#each socialLinks}}
+                <a href="{{this.url}}">{{this.platform}}</a>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</body>
+</html> 

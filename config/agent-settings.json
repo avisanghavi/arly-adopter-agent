@@ -1,0 +1,26 @@
+{
+  "email": {
+    "templates": {
+      "onboarding": "onboarding/template.html",
+      "feedback": "feedback/template.html",
+      "digest": "digest/template.html"
+    },
+    "queue": {
+      "batchSize": 5,
+      "delayBetweenBatches": 1000,
+      "maxRetries": 3
+    }
+  },
+  "engagement": {
+    "thresholds": {
+      "high": 75,
+      "medium": 40,
+      "low": 0
+    },
+    "checkInterval": "1d"
+  },
+  "feedback": {
+    "collectionInterval": "7d",
+    "reminderThreshold": "3d"
+  }
+} 

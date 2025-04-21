@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Early Adopter Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to Our Early Adopter Program!</h1>
+    </div>
+    
+    <div class="content">
+        <p>Hi {{name}},</p>
+        
+        <p>We're thrilled to have you join our early adopter program! As one of our first users, you'll have the opportunity to shape the future of our product and get exclusive access to new features.</p>
+        
+        <p>Here's what you can expect:</p>
+        <ul>
+            <li>Early access to new features and updates</li>
+            <li>Direct communication with our development team</li>
+            <li>Opportunity to influence product direction</li>
+            <li>Exclusive early adopter benefits</li>
+        </ul>
+        
+        <p>To get started, we recommend:</p>
+        <ol>
+            <li>Exploring the core features</li>
+            <li>Creating your first highlight</li>
+            <li>Joining our community discussions</li>
+        </ol>
+        
+        <div style="text-align: center;">
+            <a href="{{getStartedUrl}}" class="button">Get Started</a>
+        </div>
+        
+        <p>If you have any questions or need assistance, don't hesitate to reach out to our support team.</p>
+        
+        <p>Best regards,<br>The Early Adopter Team</p>
+    </div>
+    
+    <div class="footer">
+        <p>You received this email because you signed up for our early adopter program.</p>
+        <p>To unsubscribe, click <a href="{{unsubscribeUrl}}">here</a></p>
+    </div>
+</body>
+</html> 
