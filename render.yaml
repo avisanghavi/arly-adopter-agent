@@ -20,11 +20,27 @@ services:
       - key: GOOGLE_CLIENT_SECRET
         sync: false
       - key: GOOGLE_REDIRECT_URI
-        sync: false
+        value: https://early-adopter-agent.onrender.com/api/auth/google/callback
       - key: GOOGLE_USER_EMAIL
         sync: false
       - key: GOOGLE_REFRESH_TOKEN
         sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: LOG_LEVEL
+        value: info
+      - key: ANALYTICS_ENABLED
+        value: "true"
+      - key: ANALYTICS_SAMPLE_RATE
+        value: "100"
+      - key: FEEDBACK_COLLECTION_INTERVAL
+        value: "7"
+      - key: APP_URL
+        value: https://early-adopter-agent.onrender.com
+      - key: CLIENT_URL
+        value: https://early-adopter-agent.onrender.com
 
 databases:
   - name: early-adopter-db
