@@ -35,7 +35,6 @@ try {
 
   // Validate required environment variables
   const requiredEnvVars = [
-    'DATABASE_URL',
     'GOOGLE_CLIENT_ID',
     'GOOGLE_REDIRECT_URI',
     'SESSION_SECRET'
@@ -70,31 +69,39 @@ try {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Create PostgreSQL pool
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-  });
-
-  // Test database connection
-  pool.connect((err, client, release) => {
-    if (err) {
-      logger.error('Error connecting to PostgreSQL:', err);
-      process.exit(1);
+  // Initialize database connection
+  let pool;
+  const initializeDatabase = async () => {
+    if (!process.env.DATABASE_URL) {
+      logger.warn('DATABASE_URL not set. Database features will be unavailable.');
+      return;
     }
-    logger.info('Successfully connected to PostgreSQL');
-    release();
-  });
+
+    try {
+      pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+      });
+
+      // Test connection
+      const client = await pool.connect();
+      logger.info('Successfully connected to PostgreSQL');
+      client.release();
+    } catch (err) {
+      logger.error('Error connecting to PostgreSQL:', err);
+      // Don't exit, just retry later
+      setTimeout(initializeDatabase, 5000);
+    }
+  };
+
+  // Start database initialization
+  initializeDatabase();
 
   // Session configuration
-  app.use(session({
+  const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    store: new PgSession({
-      pool: pool,
-      tableName: 'sessions'
-    }),
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
@@ -102,7 +109,19 @@ try {
       domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined,
       httpOnly: true
     }
-  }));
+  };
+
+  // Only use PostgreSQL session store if database is available
+  if (process.env.DATABASE_URL) {
+    sessionConfig.store = new PgSession({
+      pool: pool,
+      tableName: 'sessions'
+    });
+  } else {
+    logger.warn('Using in-memory session store. Sessions will be lost on server restart.');
+  }
+
+  app.use(session(sessionConfig));
 
   // Initialize Passport and restore authentication state from session
   app.use(passport.initialize());
@@ -139,7 +158,11 @@ try {
 
   // Health check endpoint
   app.get('/health', (req, res) => {
-    res.json({ status: 'ok' });
+    const status = {
+      status: 'ok',
+      database: process.env.DATABASE_URL ? 'connected' : 'not_configured'
+    };
+    res.json(status);
   });
 
   // Serve React app for all other routes
