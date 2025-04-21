@@ -1,88 +1,61 @@
-# VideoFusion Early Adopter Agent
+# VideoFusion Email Tracking System
 
-A platform for managing early adopter engagement and email campaigns.
+A robust email tracking system for VideoFusion that tracks user engagement from email campaigns through signup conversion.
 
 ## Features
 
-- Google OAuth Integration
-- Email Campaign Management
-- UTM Tracking
-- Conversion Analytics
-- Early Adopter Management
+- UTM parameter tracking
+- Email click tracking
+- Signup form event tracking
+- Conversion tracking
+- Google OAuth integration
+- MongoDB storage for analytics
 
-## Environment Setup
+## Setup
 
-Create a `.env` file with the following variables:
-
-```env
-# Server Configuration
-PORT=3001
-NODE_ENV=development
-
-# MongoDB Configuration
-MONGODB_URI=your_mongodb_uri
-
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID=your_client_id
-GOOGLE_CLIENT_SECRET=your_client_secret
-GOOGLE_REDIRECT_URI=your_redirect_uri
-GOOGLE_USER_EMAIL=your_email
-
-# Application URLs
-APP_URL=your_app_url
-CLIENT_URL=your_client_url
-
-# Other Configuration
-JWT_SECRET=your_jwt_secret
-SESSION_SECRET=your_session_secret
+1. Clone the repository:
+```bash
+git clone [your-repo-url]
+cd [your-repo-name]
 ```
 
-## Development
-
-1. Install dependencies:
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Run the development server:
+3. Create a `.env` file with the following variables:
+```
+PORT=3001
+NODE_ENV=development
+MONGODB_URI=mongodb://localhost:27017/early-adopter-agent
+APP_URL=http://localhost:3001
+CLIENT_URL=http://localhost:3000
+```
+
+4. Set up Google OAuth2 credentials and add them to `.env`:
+```
+GOOGLE_CLIENT_ID=[your-client-id]
+GOOGLE_CLIENT_SECRET=[your-client-secret]
+GOOGLE_REDIRECT_URI=http://localhost:3001/api/auth/google/callback
+```
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
 
-## Deployment
+## Environment Variables
 
-1. Push to GitHub
-2. Connect to Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy!
+See `.env.example` for all required environment variables.
 
-## Project Structure
+## API Routes
 
-```
-early-adopter-agent/
-├── config/              # Configuration files
-├── src/                 # Source code
-│   ├── agent/          # Core agent logic
-│   ├── services/       # Service implementations
-│   ├── models/         # Database models
-│   └── utils/          # Utility functions
-├── dashboard/          # Admin dashboard
-├── api/                # API endpoints
-├── tests/              # Test files
-└── docs/               # Documentation
-```
-
-## Configuration
-
-The agent's behavior can be customized through the following configuration files:
-
-- `config/agent-settings.json`: Core agent settings
-- `config/email-templates/`: Email template customization
-- `config/database.json`: Database configuration
-
-## API Documentation
-
-The API documentation is available in the `docs/api-reference.md` file.
+- `/api/email-tracking/click/:messageId` - Track email clicks
+- `/api/email-tracking/form-event/:messageId` - Track form events
+- `/api/email-tracking/conversion/:messageId` - Track conversions
+- `/api/auth/google` - Google OAuth login
+- `/api/auth/google/callback` - Google OAuth callback
 
 ## Contributing
 
@@ -94,8 +67,4 @@ The API documentation is available in the `docs/api-reference.md` file.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the GitHub repository or contact the maintainers. 
+This project is licensed under the MIT License - see the LICENSE file for details. 
