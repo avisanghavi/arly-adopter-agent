@@ -37,8 +37,8 @@ JWT_SECRET=your_jwt_secret
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/avisanghavi/early-adopter-agent.git
-cd early-adopter-agent
+git clone https://github.com/avisanghavi/arly-adopter-agent.git
+cd arly-adopter-agent
 ```
 
 2. Install dependencies:

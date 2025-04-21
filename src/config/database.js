@@ -11,21 +11,26 @@ const connectDB = async () => {
     }
 
     if (!mongoConnection) {
-      logger.info('Attempting to connect to MongoDB...');
+      logger.info('Attempting to connect to MongoDB Atlas...');
       mongoConnection = await mongoose.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000,
-        socketTimeoutMS: 45000,
+        serverApi: {
+          version: '1',
+          strict: true,
+          deprecationErrors: true,
+        },
+        // Add connection timeouts
+        connectTimeoutMS: 10000, // 10 seconds
+        socketTimeoutMS: 45000, // 45 seconds
       });
-      
+
       // Verify the connection
       const db = mongoose.connection;
       if (db.readyState === 1) {
-        logger.info('MongoDB connected successfully');
+        logger.info('MongoDB Atlas connected successfully');
         logger.info(`Connected to database: ${db.name}`);
         logger.info(`Host: ${db.host}`);
-        logger.info(`Port: ${db.port}`);
       } else {
         throw new Error('MongoDB connection not established');
       }
@@ -33,13 +38,17 @@ const connectDB = async () => {
     return mongoConnection;
   } catch (error) {
     logger.error('MongoDB connection error:', error);
+    // Add more detailed error information
+    if (error.name === 'MongoServerSelectionError') {
+      logger.error('Could not connect to any MongoDB server');
+    }
     throw error;
   }
 };
 
 // Handle connection events
 mongoose.connection.on('connected', () => {
-  logger.info('Mongoose connected to MongoDB');
+  logger.info('Mongoose connected to MongoDB Atlas');
 });
 
 mongoose.connection.on('error', (err) => {
@@ -47,7 +56,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 mongoose.connection.on('disconnected', () => {
-  logger.warn('Mongoose disconnected from MongoDB');
+  logger.warn('Mongoose disconnected from MongoDB Atlas');
 });
 
 // Handle process termination

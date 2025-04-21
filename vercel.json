@@ -14,11 +14,15 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "src/agent/index.js"
+      "dest": "/src/agent/index.js"
+    },
+    {
+      "src": "/auth/(.*)",
+      "dest": "/src/agent/index.js"
     },
     {
       "src": "/health",
-      "dest": "src/agent/index.js"
+      "dest": "/src/agent/index.js"
     },
     {
       "src": "^/static/(.*)",
