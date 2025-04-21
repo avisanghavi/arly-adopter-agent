@@ -1,27 +1,43 @@
-# AI Agent for Early Adopter Engagement
+# Early Adopter Agent
 
-An intelligent agent system designed to automate and optimize early adopter engagement through personalized communication, feedback collection, and analytics.
+A web service that helps users discover and evaluate new products and services.
 
 ## Features
 
-- Automated email sequences for onboarding and engagement
-- Intelligent user segmentation based on engagement metrics
-- Feedback collection and analysis
-- Real-time engagement tracking
-- Customizable email templates
-- Analytics dashboard
+- Google OAuth Authentication
+- MongoDB Database Integration
+- Email Integration
+- Product Discovery and Evaluation
+- User Profile Management
 
-## Prerequisites
+## Tech Stack
 
-- Node.js >= 18.0.0
-- MongoDB >= 4.4
-- SMTP email service (e.g., SendGrid, Mailgun)
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Passport.js
+- Google OAuth
+- Vercel Deployment
 
-## Installation
+## Environment Variables
+
+Required environment variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=your_redirect_uri
+SESSION_SECRET=your_session_secret
+JWT_SECRET=your_jwt_secret
+```
+
+## Local Development
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/early-adopter-agent.git
+git clone https://github.com/your-username/early-adopter-agent.git
 cd early-adopter-agent
 ```
 
@@ -30,67 +46,31 @@ cd early-adopter-agent
 npm install
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
-```env
-MONGODB_URI=mongodb://localhost:27017/early-adopter-agent
-SMTP_HOST=your-smtp-host
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your-smtp-username
-SMTP_PASS=your-smtp-password
-EMAIL_FROM=your-email@domain.com
-```
+3. Create a `.env` file with the required environment variables
 
-4. Start the application:
-```bash
-npm start
-```
-
-For development:
+4. Start the development server:
 ```bash
 npm run dev
 ```
 
-## Project Structure
+## Deployment
 
-```
-early-adopter-agent/
-├── config/              # Configuration files
-├── src/                 # Source code
-│   ├── agent/          # Core agent logic
-│   ├── services/       # Service implementations
-│   ├── models/         # Database models
-│   └── utils/          # Utility functions
-├── dashboard/          # Admin dashboard
-├── api/                # API endpoints
-├── tests/              # Test files
-└── docs/               # Documentation
-```
+This project is configured for deployment on Vercel. The deployment process is automated through GitHub integration.
 
-## Configuration
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Set up the required environment variables in Vercel
+4. Deploy!
 
-The agent's behavior can be customized through the following configuration files:
+## API Endpoints
 
-- `config/agent-settings.json`: Core agent settings
-- `config/email-templates/`: Email template customization
-- `config/database.json`: Database configuration
-
-## API Documentation
-
-The API documentation is available in the `docs/api-reference.md` file.
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- `GET /health` - Health check endpoint
+- `GET /auth/google` - Google OAuth authentication
+- `GET /auth/google/callback` - Google OAuth callback
+- `GET /api/user` - Get current user profile
+- `POST /api/products` - Add new product
+- `GET /api/products` - Get all products
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the GitHub repository or contact the maintainers. 
+MIT 

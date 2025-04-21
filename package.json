@@ -1,22 +1,24 @@
 {
   "name": "early-adopter-agent",
   "version": "1.0.0",
+  "private": true,
   "description": "Early Adopter Agent",
   "main": "src/agent/index.js",
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "node src/agent/index.js",
-    "dev": "nodemon src/agent/index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "jest",
     "lint": "eslint .",
     "init-db": "node src/db/init-db.js",
     "test-db": "node src/db/test-db.js",
     "cleanup-db": "node src/db/cleanup-test-data.js",
-    "build": "npm install --production",
+    "build": "echo 'No build step required'",
     "start-frontend": "PORT=3000 react-scripts start",
     "start-backend": "PORT=3001 nodemon src/agent/index.js",
     "dev-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "vercel-build": "echo 'No build step required'"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -26,17 +28,17 @@
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.12",
-    "connect-mongo": "^5.1.0",
+    "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "googleapis": "^118.0.0",
     "handlebars": "^4.7.8",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.3",
+    "mongoose": "^7.6.3",
     "multer": "^1.4.5-lts.2",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.7",
@@ -52,7 +54,7 @@
     "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
     "sequelize": "^6.31.0",
-    "winston": "^3.10.0"
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "chai": "^4.5.0",
@@ -60,11 +62,11 @@
     "eslint": "^8.48.0",
     "jest": "^29.5.0",
     "mocha": "^10.8.2",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.0.1",
     "supertest": "^6.3.3"
   },
   "engines": {
-    "node": "18.x"
+    "node": ">=18.0.0"
   },
   "browserslist": {
     "production": [
