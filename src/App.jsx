@@ -23,7 +23,7 @@ import EmailHistory from './dashboard/components/EmailHistory';
 import Login from './dashboard/components/Login';
 import UTMGenerator from './components/UTMGenerator';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://the-agenttoend-agents-e8jd4qf70-avisanghavis-projects.vercel.app';
+const API_URL = process.env.REACT_APP_API_URL || 'https://theagenttoendagents.vercel.app';
 
 const App = () => {
   const [authState, setAuthState] = useState({
