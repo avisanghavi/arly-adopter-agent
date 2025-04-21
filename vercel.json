@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "src/agent/index.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
     },
     {
       "src": "package.json",
@@ -12,6 +15,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/health",
+      "dest": "src/agent/index.js"
+    },
     {
       "src": "/api/auth/(.*)",
       "dest": "src/agent/index.js"
@@ -22,10 +29,6 @@
     },
     {
       "src": "/auth/(.*)",
-      "dest": "src/agent/index.js"
-    },
-    {
-      "src": "/health",
       "dest": "src/agent/index.js"
     },
     {
@@ -52,5 +55,11 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "functions": {
+    "src/agent/index.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
 } 
