@@ -1952,3 +1952,25 @@
 {"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:51:53.738Z"}
 {"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:51:53.738Z"}
 {"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T02:51:53.750Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T02:54:37.626Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T02:54:37.628Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T02:54:37.628Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T02:54:37.628Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T02:54:37.628Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T02:54:37.628Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T02:54:37.628Z"}
+{"level":"info","message":"Attempting to connect to MongoDB...","timestamp":"2025-04-21T02:54:37.642Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:54:37.651Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:54:37.652Z"}
+{"level":"info","message":"Successfully connected to MongoDB","timestamp":"2025-04-21T02:54:37.661Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T02:54:56.923Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T02:54:56.925Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T02:54:56.925Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T02:54:56.925Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T02:54:56.925Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T02:54:56.926Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T02:54:56.926Z"}
+{"level":"info","message":"Attempting to connect to MongoDB...","timestamp":"2025-04-21T02:54:56.939Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:54:56.948Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:54:56.948Z"}
+{"level":"info","message":"Successfully connected to MongoDB","timestamp":"2025-04-21T02:54:56.959Z"}

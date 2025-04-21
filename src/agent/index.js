@@ -1,16 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
+const { Pool } = require('pg');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const PgSession = require('pg-session-store')(session);
 
 console.log('Starting server initialization...');
 
 // Debug: Log environment variables (excluding sensitive values)
 console.log('Environment check:');
 console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
+console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
 console.log('GOOGLE_CLIENT_SECRET exists:', !!process.env.GOOGLE_CLIENT_SECRET);
 console.log('OPENAI_API_KEY exists:', !!process.env.OPENAI_API_KEY);
 
@@ -35,7 +35,7 @@ try {
 
   // Validate required environment variables
   const requiredEnvVars = [
-    'MONGODB_URI',
+    'DATABASE_URL',
     'GOOGLE_CLIENT_ID',
     'GOOGLE_REDIRECT_URI',
     'SESSION_SECRET'
@@ -51,7 +51,7 @@ try {
   logger.info('Environment variables loaded:');
   logger.info('NODE_ENV:', process.env.NODE_ENV);
   logger.info('PORT:', process.env.PORT);
-  logger.info('MONGODB_URI:', process.env.MONGODB_URI);
+  logger.info('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set');
   logger.info('CLIENT_URL:', process.env.CLIENT_URL);
   logger.info('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? 'Set' : 'Not set');
   logger.info('GOOGLE_REDIRECT_URI:', process.env.GOOGLE_REDIRECT_URI);
@@ -70,14 +70,30 @@ try {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // Create PostgreSQL pool
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  });
+
+  // Test database connection
+  pool.connect((err, client, release) => {
+    if (err) {
+      logger.error('Error connecting to PostgreSQL:', err);
+      process.exit(1);
+    }
+    logger.info('Successfully connected to PostgreSQL');
+    release();
+  });
+
   // Session configuration
   app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
-      collectionName: 'sessions'
+    store: new PgSession({
+      pool: pool,
+      tableName: 'sessions'
     }),
     cookie: {
       secure: process.env.NODE_ENV === 'production',
@@ -104,14 +120,6 @@ try {
 
   // Email tracking routes - public endpoints for tracking, protected endpoints for analytics
   app.use('/api/email-tracking', emailTrackingRoutes);
-
-  // Connect to MongoDB
-  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/early-adopter-agent', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => logger.info('Connected to MongoDB'))
-  .catch(err => logger.error('MongoDB connection error:', err));
 
   // Initialize services
   const emailService = require('../services/email-service');
