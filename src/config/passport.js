@@ -5,18 +5,13 @@ const User = require('../models/user');
 const logger = require('../utils/logger');
 const { google } = require('googleapis');
 
-// Debug logging
-console.log('Loading Passport config with:');
-console.log('Client ID:', process.env.GOOGLE_CLIENT_ID);
-console.log('Redirect URI:', process.env.GOOGLE_REDIRECT_URI);
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id).lean();
     done(null, user);
   } catch (error) {
     done(error);
@@ -24,14 +19,8 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Ensure we have required environment variables
-if (!process.env.GOOGLE_CLIENT_ID) {
-  throw new Error('GOOGLE_CLIENT_ID is not set in environment variables');
-}
-if (!process.env.GOOGLE_CLIENT_SECRET) {
-  throw new Error('GOOGLE_CLIENT_SECRET is not set in environment variables');
-}
-if (!process.env.GOOGLE_REDIRECT_URI) {
-  throw new Error('GOOGLE_REDIRECT_URI is not set in environment variables');
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.GOOGLE_REDIRECT_URI) {
+  throw new Error('Missing required Google OAuth environment variables');
 }
 
 // Create OAuth2 client for token management
@@ -45,49 +34,39 @@ passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_REDIRECT_URI,
-    scope: [
-      'profile',
-      'email',
-      'https://www.googleapis.com/auth/gmail.send',
-      'https://www.googleapis.com/auth/gmail.compose',
-      'https://mail.google.com/'
-    ],
+    scope: ['profile', 'email', 'https://www.googleapis.com/auth/gmail.send'],
     accessType: 'offline',
-    prompt: 'consent',
-    includeGrantedScopes: true
+    prompt: 'consent'
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
-      logger.info('Google OAuth callback received:', {
-        hasAccessToken: !!accessToken,
-        hasRefreshToken: !!refreshToken,
-        profileId: profile.id,
-        scopes: profile._json.scope
-      });
-
-      // Check if user exists
-      let user = await User.findOne({ googleId: profile.id });
+      // Check if user exists using lean() for faster query
+      let user = await User.findOne({ googleId: profile.id }).lean();
       
       if (user) {
         // Update email credentials
+        await User.updateOne(
+          { _id: user._id },
+          {
+            $set: {
+              'emailCredentials.accessToken': accessToken,
+              'emailCredentials.refreshToken': refreshToken || user.emailCredentials?.refreshToken,
+              'emailCredentials.expiryDate': new Date(Date.now() + 3600000)
+            }
+          }
+        );
         user.emailCredentials = {
           accessToken,
           refreshToken: refreshToken || user.emailCredentials?.refreshToken,
-          expiryDate: new Date(Date.now() + 3600000) // 1 hour from now
+          expiryDate: new Date(Date.now() + 3600000)
         };
-        await user.save();
-        logger.info('Updated existing user credentials:', {
-          userId: user._id,
-          hasRefreshToken: !!user.emailCredentials.refreshToken
-        });
       } else {
         // Create new user
         if (!refreshToken) {
-          logger.error('No refresh token received for new user');
           return done(new Error('No refresh token received from Google'));
         }
         
-        user = await User.create({
+        const newUser = {
           googleId: profile.id,
           email: profile.emails[0].value,
           name: profile.displayName,
@@ -97,19 +76,15 @@ passport.use(new GoogleStrategy({
             refreshToken,
             expiryDate: new Date(Date.now() + 3600000)
           }
-        });
-        logger.info('Created new user:', {
-          userId: user._id,
-          hasRefreshToken: !!user.emailCredentials.refreshToken
-        });
+        };
+        
+        const result = await User.create(newUser);
+        user = result.toObject();
       }
       
       return done(null, user);
     } catch (error) {
-      logger.error('Error in Google OAuth callback:', {
-        error: error.message,
-        stack: error.stack
-      });
+      logger.error('Auth error:', error.message);
       return done(error);
     }
   }
