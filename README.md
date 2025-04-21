@@ -37,7 +37,7 @@ JWT_SECRET=your_jwt_secret
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/early-adopter-agent.git
+git clone https://github.com/avisanghavi/early-adopter-agent.git
 cd early-adopter-agent
 ```
 
