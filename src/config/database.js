@@ -10,6 +10,10 @@ const connectDB = async () => {
       throw new Error('MONGODB_URI is not defined');
     }
 
+    // Log the environment we're running in
+    logger.info('Current environment:', process.env.NODE_ENV);
+    logger.info('Running on Vercel:', !!process.env.VERCEL);
+
     // If we already have a connection and it's ready, reuse it
     if (mongoose.connection.readyState === 1) {
       logger.info('Reusing existing MongoDB connection');
@@ -40,7 +44,10 @@ const connectDB = async () => {
     if (db.readyState === 1) {
       logger.info('MongoDB Atlas connected successfully');
       logger.info(`Connected to database: ${db.name}`);
+      logger.info('Connection state:', db.readyState);
+      logger.info('Connection host:', db.host);
     } else {
+      logger.error('Connection state:', db.readyState);
       throw new Error('MongoDB connection not established');
     }
 
@@ -50,6 +57,7 @@ const connectDB = async () => {
     // Add more detailed error information
     if (error.name === 'MongoServerSelectionError') {
       logger.error('Could not connect to any MongoDB server');
+      logger.error('Server selection error details:', error.message);
     }
     throw error;
   }
