@@ -17,10 +17,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://the-agenttoend-agents-e8jd4q70-avisanghavis-projects.vercel.app',
+  origin: process.env.CLIENT_URL || 'https://the-agenttoend-agents-p9ls3w860-avisanghavis-projects.vercel.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,14 +32,18 @@ app.use(session({
   saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
-    ttl: 24 * 60 * 60 // 1 day
+    ttl: 24 * 60 * 60, // 1 day
+    autoRemove: 'native',
+    touchAfter: 24 * 3600 // time period in seconds
   }),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
-    domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined
-  }
+    domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined,
+    httpOnly: true
+  },
+  proxy: true // trust the reverse proxy
 }));
 
 // Initialize Passport
@@ -65,7 +69,7 @@ app.get('/', (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   logger.error('Unhandled error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(500).json({ error: 'Internal server error', details: err.message });
 });
 
 module.exports = app; 

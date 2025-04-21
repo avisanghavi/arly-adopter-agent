@@ -1653,3 +1653,15 @@
 {"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T01:26:04.600Z"}
 {"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T01:26:04.601Z"}
 {"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T01:26:04.610Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T01:36:13.538Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T01:36:13.540Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T01:36:13.540Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T01:36:13.541Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T01:36:13.541Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T01:36:13.541Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T01:36:13.541Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T01:36:13.541Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T01:36:13.559Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T01:36:13.559Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.cluster0.qqvhxvj.mongodb.net","level":"error","message":"MongoDB connection error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-04-21T01:36:13.631Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.cluster0.qqvhxvj.mongodb.net","level":"error","message":"Unhandled promise rejection: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-04-21T01:36:13.631Z"}
