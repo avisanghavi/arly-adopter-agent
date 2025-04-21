@@ -12,8 +12,12 @@ import { Google as GoogleIcon } from '@mui/icons-material';
 const Login = () => {
   const handleGoogleLogin = () => {
     try {
-      // Use window.location.origin to get the current domain
-      const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      // Use the deployed URL in production, fallback to localhost in development
+      const backendUrl = process.env.NODE_ENV === 'production'
+        ? 'https://arly-adopter-agent-avisanghavi.vercel.app'
+        : 'http://localhost:3001';
+      
+      console.log('Redirecting to:', `${backendUrl}/api/auth/google`);
       window.location.href = `${backendUrl}/api/auth/google`;
     } catch (error) {
       console.error('Login error:', error);
@@ -41,11 +45,11 @@ const Login = () => {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            Welcome to VideoFusion
+            Early Adopter Agent
           </Typography>
           
           <Typography variant="body1" color="text.secondary" align="center">
-            Sign in with your Google account to start creating personalized email campaigns
+            Sign in with your Google account to get started
           </Typography>
 
           <Button
@@ -67,7 +71,7 @@ const Login = () => {
           </Button>
 
           <Typography variant="caption" color="text.secondary" align="center">
-            You'll be able to send emails using your own Gmail account
+            Secure authentication powered by Google
           </Typography>
         </Paper>
       </Container>
