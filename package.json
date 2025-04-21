@@ -12,7 +12,7 @@
     "init-db": "node src/db/init-db.js",
     "test-db": "node src/db/test-db.js",
     "cleanup-db": "node src/db/cleanup-test-data.js",
-    "build": "cd client && npm install && npm run build",
+    "build": "echo 'No build step required'",
     "start-frontend": "PORT=3000 react-scripts start",
     "start-backend": "PORT=3001 nodemon src/agent/index.js",
     "dev-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
