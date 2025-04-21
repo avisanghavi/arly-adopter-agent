@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: early-adopter-agent
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: early-adopter-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
+      - key: GOOGLE_USER_EMAIL
+        sync: false
+      - key: GOOGLE_REFRESH_TOKEN
+        sync: false
+
+databases:
+  - name: early-adopter-db
+    databaseName: early-adopter-agent
+    user: early-adopter-user
+    plan: free 

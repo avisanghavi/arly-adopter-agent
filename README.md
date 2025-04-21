@@ -1,22 +1,28 @@
-# VideoFusion Email Tracking System
+# AI Agent for Early Adopter Engagement
 
-A robust email tracking system for VideoFusion that tracks user engagement from email campaigns through signup conversion.
+An intelligent agent system designed to automate and optimize early adopter engagement through personalized communication, feedback collection, and analytics.
 
 ## Features
 
-- UTM parameter tracking
-- Email click tracking
-- Signup form event tracking
-- Conversion tracking
-- Google OAuth integration
-- MongoDB storage for analytics
+- Automated email sequences for onboarding and engagement
+- Intelligent user segmentation based on engagement metrics
+- Feedback collection and analysis
+- Real-time engagement tracking
+- Customizable email templates
+- Analytics dashboard
 
-## Setup
+## Prerequisites
+
+- Node.js >= 18.0.0
+- MongoDB >= 4.4
+- SMTP email service (e.g., SendGrid, Mailgun)
+
+## Installation
 
 1. Clone the repository:
 ```bash
-git clone [your-repo-url]
-cd [your-repo-name]
+git clone https://github.com/yourusername/early-adopter-agent.git
+cd early-adopter-agent
 ```
 
 2. Install dependencies:
@@ -24,38 +30,54 @@ cd [your-repo-name]
 npm install
 ```
 
-3. Create a `.env` file with the following variables:
-```
-PORT=3001
-NODE_ENV=development
+3. Create a `.env` file in the root directory with the following variables:
+```env
 MONGODB_URI=mongodb://localhost:27017/early-adopter-agent
-APP_URL=http://localhost:3001
-CLIENT_URL=http://localhost:3000
+SMTP_HOST=your-smtp-host
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-smtp-username
+SMTP_PASS=your-smtp-password
+EMAIL_FROM=your-email@domain.com
 ```
 
-4. Set up Google OAuth2 credentials and add them to `.env`:
-```
-GOOGLE_CLIENT_ID=[your-client-id]
-GOOGLE_CLIENT_SECRET=[your-client-secret]
-GOOGLE_REDIRECT_URI=http://localhost:3001/api/auth/google/callback
+4. Start the application:
+```bash
+npm start
 ```
 
-5. Start the development server:
+For development:
 ```bash
 npm run dev
 ```
 
-## Environment Variables
+## Project Structure
 
-See `.env.example` for all required environment variables.
+```
+early-adopter-agent/
+├── config/              # Configuration files
+├── src/                 # Source code
+│   ├── agent/          # Core agent logic
+│   ├── services/       # Service implementations
+│   ├── models/         # Database models
+│   └── utils/          # Utility functions
+├── dashboard/          # Admin dashboard
+├── api/                # API endpoints
+├── tests/              # Test files
+└── docs/               # Documentation
+```
 
-## API Routes
+## Configuration
 
-- `/api/email-tracking/click/:messageId` - Track email clicks
-- `/api/email-tracking/form-event/:messageId` - Track form events
-- `/api/email-tracking/conversion/:messageId` - Track conversions
-- `/api/auth/google` - Google OAuth login
-- `/api/auth/google/callback` - Google OAuth callback
+The agent's behavior can be customized through the following configuration files:
+
+- `config/agent-settings.json`: Core agent settings
+- `config/email-templates/`: Email template customization
+- `config/database.json`: Database configuration
+
+## API Documentation
+
+The API documentation is available in the `docs/api-reference.md` file.
 
 ## Contributing
 
@@ -67,4 +89,8 @@ See `.env.example` for all required environment variables.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support, please open an issue in the GitHub repository or contact the maintainers. 

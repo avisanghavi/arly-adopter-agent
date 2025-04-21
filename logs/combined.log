@@ -1807,3 +1807,41 @@
 {"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:03:50.427Z"}
 {"code":"ENOTFOUND","hostname":"_mongodb._tcp.cluster0.qqvhxvj.mongodb.net","level":"error","message":"MongoDB connection error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-04-21T02:03:50.494Z"}
 {"code":"ENOTFOUND","hostname":"_mongodb._tcp.cluster0.qqvhxvj.mongodb.net","level":"error","message":"Unhandled promise rejection: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-04-21T02:03:50.494Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T02:04:02.179Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T02:04:02.181Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:04:02.199Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:04:02.199Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.cluster0.qqvhxvj.mongodb.net","level":"error","message":"MongoDB connection error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-04-21T02:04:02.274Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.cluster0.qqvhxvj.mongodb.net","level":"error","message":"Unhandled promise rejection: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.cluster0.qqvhxvj.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-04-21T02:04:02.275Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T02:08:58.625Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T02:08:58.629Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T02:08:58.629Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T02:08:58.629Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T02:08:58.630Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T02:08:58.631Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T02:08:58.632Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T02:08:58.632Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:08:58.661Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:08:58.662Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T02:08:58.941Z"}
+{"level":"info","message":"Aggregated email statistics:","overallStats":[{"_id":"failed","clicks":0,"conversions":0,"opens":0,"sent":11,"totalOpens":0},{"_id":"sent","clicks":11,"conversions":0,"opens":0,"sent":12,"totalOpens":0}],"timestamp":"2025-04-21T02:09:18.568Z","todayStats":{"_id":null,"clicks":11,"conversions":0,"opens":0,"sent":23}}
+{"level":"info","message":"Aggregated email statistics:","overallStats":[{"_id":"sent","clicks":11,"conversions":0,"opens":0,"sent":12,"totalOpens":0},{"_id":"failed","clicks":0,"conversions":0,"opens":0,"sent":11,"totalOpens":0}],"timestamp":"2025-04-21T02:09:18.577Z","todayStats":{"_id":null,"clicks":11,"conversions":0,"opens":0,"sent":23}}
+{"level":"info","message":"Aggregated email statistics:","overallStats":[{"_id":"sent","clicks":11,"conversions":0,"opens":0,"sent":12,"totalOpens":0},{"_id":"failed","clicks":0,"conversions":0,"opens":0,"sent":11,"totalOpens":0}],"timestamp":"2025-04-21T02:09:19.850Z","todayStats":{"_id":null,"clicks":11,"conversions":0,"opens":0,"sent":23}}
+{"level":"info","message":"Aggregated email statistics:","overallStats":[{"_id":"failed","clicks":0,"conversions":0,"opens":0,"sent":11,"totalOpens":0},{"_id":"sent","clicks":11,"conversions":0,"opens":0,"sent":12,"totalOpens":0}],"timestamp":"2025-04-21T02:09:19.865Z","todayStats":{"_id":null,"clicks":11,"conversions":0,"opens":0,"sent":23}}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T02:09:39.827Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T02:09:39.829Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T02:09:39.829Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T02:09:39.829Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T02:09:39.829Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T02:09:39.829Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T02:09:39.830Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T02:09:39.830Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:09:39.852Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:09:39.852Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T02:09:39.864Z"}

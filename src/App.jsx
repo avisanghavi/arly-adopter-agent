@@ -23,8 +23,6 @@ import EmailHistory from './dashboard/components/EmailHistory';
 import Login from './dashboard/components/Login';
 import UTMGenerator from './components/UTMGenerator';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://theagenttoendagents.vercel.app';
-
 const App = () => {
   const [authState, setAuthState] = useState({
     isAuthenticated: false,
@@ -57,7 +55,7 @@ const App = () => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/auth/status`, {
+      const response = await fetch('http://localhost:3001/api/auth/status', {
         credentials: 'include'
       });
       const data = await response.json();
@@ -79,7 +77,7 @@ const App = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${API_URL}/api/auth/logout`, {
+      await fetch('http://localhost:3001/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
       });
@@ -166,7 +164,7 @@ const App = () => {
             )}
 
             <IconButton
-              href="https://github.com/avisanghavi/ai-to-end-ai"
+              href="https://github.com/yourusername/early-adopter-agent"
               target="_blank"
               rel="noopener noreferrer"
               sx={{ 
@@ -186,46 +184,43 @@ const App = () => {
         component="main" 
         sx={{ 
           flexGrow: 1,
-          bgcolor: '#f6f9fc',
-          py: 4
+          bgcolor: '#f6f9fc'
         }}
       >
-        <Container maxWidth="lg">
-          <Routes>
-            <Route 
-              path="/login" 
-              element={
-                authState.isAuthenticated ? 
-                  <Navigate to="/" replace /> : 
-                  <Login apiUrl={API_URL} />
-              } 
-            />
-            <Route 
-              path="/" 
-              element={
-                authState.isAuthenticated ? 
-                  <EmailTester apiUrl={API_URL} /> : 
-                  <Navigate to="/login" replace />
-              } 
-            />
-            <Route 
-              path="/history" 
-              element={
-                authState.isAuthenticated ? 
-                  <EmailHistory apiUrl={API_URL} /> : 
-                  <Navigate to="/login" replace />
-              } 
-            />
-            <Route 
-              path="/utm-generator" 
-              element={
-                authState.isAuthenticated ? 
-                  <UTMGenerator /> : 
-                  <Navigate to="/login" replace />
-              } 
-            />
-          </Routes>
-        </Container>
+        <Routes>
+          <Route 
+            path="/login" 
+            element={
+              authState.isAuthenticated ? 
+                <Navigate to="/" replace /> : 
+                <Login />
+            } 
+          />
+          <Route 
+            path="/" 
+            element={
+              authState.isAuthenticated ? 
+                <EmailTester /> : 
+                <Navigate to="/login" replace />
+            } 
+          />
+          <Route 
+            path="/history" 
+            element={
+              authState.isAuthenticated ? 
+                <EmailHistory /> : 
+                <Navigate to="/login" replace />
+            } 
+          />
+          <Route 
+            path="/utm-generator" 
+            element={
+              authState.isAuthenticated ? 
+                <UTMGenerator /> : 
+                <Navigate to="/login" replace />
+            } 
+          />
+        </Routes>
       </Box>
     </Box>
   );

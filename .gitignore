@@ -14,7 +14,7 @@ yarn-error.log
 # Build output
 dist/
 build/
-.next/
+client/build/
 
 # IDE and editor files
 .idea/
@@ -27,11 +27,6 @@ build/
 logs/
 *.log
 
-# Testing
-coverage/
-
-# Misc
-.cache/
-.temp/
-.tmp/ 
-.vercel
+# Temporary files
+tmp/
+temp/ 
