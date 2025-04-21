@@ -2,17 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/index.js",
+      "src": "src/agent/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "src/agent/index.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "src/index.js"
+      "dest": "src/index.jsx"
     }
   ],
   "env": {
     "NODE_ENV": "production"
-  }
+  },
+  "regions": ["iad1"]
 } 
