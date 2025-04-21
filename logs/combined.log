@@ -1985,3 +1985,14 @@
 {"level":"warn","message":"Using in-memory session store. Sessions will be lost on server restart.","timestamp":"2025-04-21T02:59:05.883Z"}
 {"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T02:59:05.891Z"}
 {"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T02:59:05.891Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T03:02:10.629Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T03:02:10.633Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T03:02:10.633Z"}
+{"level":"info","message":"DATABASE_URL:","timestamp":"2025-04-21T03:02:10.633Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T03:02:10.634Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T03:02:10.634Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T03:02:10.634Z"}
+{"level":"warn","message":"DATABASE_URL not set. Database features will be unavailable.","timestamp":"2025-04-21T03:02:10.635Z"}
+{"level":"warn","message":"Using in-memory session store. Sessions will be lost on server restart.","timestamp":"2025-04-21T03:02:10.635Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T03:02:10.643Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T03:02:10.643Z"}

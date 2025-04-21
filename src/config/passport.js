@@ -1,7 +1,7 @@
 require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/user');
+const { Pool } = require('pg');
 const logger = require('../utils/logger');
 const { google } = require('googleapis');
 
@@ -12,15 +12,31 @@ console.log('Client Secret exists:', !!process.env.GOOGLE_CLIENT_SECRET);
 console.log('Redirect URI:', process.env.GOOGLE_REDIRECT_URI);
 
 try {
+  // Initialize database pool if DATABASE_URL is available
+  let pool;
+  if (process.env.DATABASE_URL) {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    });
+  }
+
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
   passport.deserializeUser(async (id, done) => {
+    if (!pool) {
+      logger.warn('Database not available for user deserialization');
+      return done(null, null);
+    }
+
     try {
-      const user = await User.findById(id);
+      const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+      const user = result.rows[0];
       done(null, user);
     } catch (error) {
+      logger.error('Error deserializing user:', error);
       done(error);
     }
   });
@@ -59,6 +75,11 @@ try {
       includeGrantedScopes: true
     },
     async (accessToken, refreshToken, profile, done) => {
+      if (!pool) {
+        logger.error('Database not available for user authentication');
+        return done(new Error('Database not available'));
+      }
+
       try {
         logger.info('Google OAuth callback received:', {
           hasAccessToken: !!accessToken,
@@ -68,20 +89,26 @@ try {
         });
 
         // Check if user exists
-        let user = await User.findOne({ googleId: profile.id });
+        const userResult = await pool.query(
+          'SELECT * FROM users WHERE google_id = $1',
+          [profile.id]
+        );
+        let user = userResult.rows[0];
         
         if (user) {
           // If user exists but no new refresh token, revoke access and return error
-          if (!refreshToken && !user.emailCredentials?.refreshToken) {
+          if (!refreshToken && !user.email_credentials?.refresh_token) {
             logger.error('No refresh token available for existing user');
             try {
               // Revoke existing access
-              if (user.emailCredentials?.accessToken) {
-                await oauth2Client.revokeToken(user.emailCredentials.accessToken);
+              if (user.email_credentials?.access_token) {
+                await oauth2Client.revokeToken(user.email_credentials.access_token);
               }
               // Clear credentials
-              user.emailCredentials = undefined;
-              await user.save();
+              await pool.query(
+                'UPDATE users SET email_credentials = NULL WHERE id = $1',
+                [user.id]
+              );
             } catch (revokeError) {
               logger.error('Error revoking token:', revokeError);
             }
@@ -89,15 +116,20 @@ try {
           }
 
           // Update email credentials
-          user.emailCredentials = {
-            accessToken,
-            refreshToken: refreshToken || user.emailCredentials?.refreshToken,
-            expiryDate: new Date(Date.now() + 3600000) // 1 hour from now
+          const emailCredentials = {
+            access_token: accessToken,
+            refresh_token: refreshToken || user.email_credentials?.refresh_token,
+            expiry_date: new Date(Date.now() + 3600000) // 1 hour from now
           };
-          await user.save();
+
+          await pool.query(
+            'UPDATE users SET email_credentials = $1 WHERE id = $2',
+            [emailCredentials, user.id]
+          );
+
           logger.info('Updated existing user credentials:', {
-            userId: user._id,
-            hasRefreshToken: !!user.emailCredentials.refreshToken
+            userId: user.id,
+            hasRefreshToken: !!emailCredentials.refresh_token
           });
         } else {
           // Create new user
@@ -106,20 +138,30 @@ try {
             return done(new Error('No refresh token received from Google'));
           }
           
-          user = await User.create({
-            googleId: profile.id,
-            email: profile.emails[0].value,
-            name: profile.displayName,
-            picture: profile.photos[0].value,
-            emailCredentials: {
-              accessToken,
-              refreshToken,
-              expiryDate: new Date(Date.now() + 3600000)
-            }
-          });
+          const emailCredentials = {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+            expiry_date: new Date(Date.now() + 3600000)
+          };
+
+          const newUserResult = await pool.query(
+            `INSERT INTO users 
+             (google_id, email, name, picture, email_credentials) 
+             VALUES ($1, $2, $3, $4, $5) 
+             RETURNING *`,
+            [
+              profile.id,
+              profile.emails[0].value,
+              profile.displayName,
+              profile.photos[0].value,
+              emailCredentials
+            ]
+          );
+
+          user = newUserResult.rows[0];
           logger.info('Created new user:', {
-            userId: user._id,
-            hasRefreshToken: !!user.emailCredentials.refreshToken
+            userId: user.id,
+            hasRefreshToken: !!user.email_credentials?.refresh_token
           });
         }
         
