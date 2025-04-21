@@ -1495,3 +1495,103 @@
 {"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:44:09.410Z"}
 {"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:44:09.410Z"}
 {"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:44:09.509Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T00:48:11.137Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T00:48:11.139Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:48:11.163Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:48:11.163Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:48:11.203Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T00:48:11.885Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T00:48:11.887Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T00:48:11.887Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T00:48:11.888Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T00:48:11.888Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T00:48:11.888Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T00:48:11.888Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T00:48:11.888Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:48:11.910Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:48:11.911Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:48:11.921Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T00:52:15.227Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T00:52:15.229Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T00:52:15.229Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T00:52:15.229Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T00:52:15.229Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T00:52:15.229Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T00:52:15.230Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T00:52:15.230Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:52:15.261Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:52:15.262Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:52:15.271Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T00:54:28.006Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T00:54:28.008Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T00:54:28.008Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T00:54:28.009Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T00:54:28.009Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T00:54:28.009Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T00:54:28.009Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T00:54:28.009Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:54:28.032Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:54:28.032Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:54:28.044Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T00:54:28.698Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T00:54:28.700Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T00:54:28.700Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T00:54:28.700Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T00:54:28.700Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T00:54:28.700Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T00:54:28.700Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T00:54:28.701Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:54:28.722Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:54:28.723Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:54:28.735Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T00:54:34.932Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T00:54:34.933Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T00:54:34.934Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T00:54:34.934Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T00:54:34.934Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T00:54:34.934Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T00:54:34.934Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T00:54:34.934Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T00:54:34.956Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T00:54:34.957Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T00:54:34.967Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T01:11:11.580Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T01:11:11.586Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T01:11:11.586Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T01:11:11.586Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T01:11:11.586Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T01:11:11.587Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T01:11:11.587Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T01:11:11.587Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T01:11:11.610Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T01:11:11.610Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T01:11:11.619Z"}
+{"level":"info","message":"Environment variables loaded:","timestamp":"2025-04-21T01:11:21.062Z"}
+{"level":"info","message":"NODE_ENV:","timestamp":"2025-04-21T01:11:21.064Z"}
+{"level":"info","message":"PORT:","timestamp":"2025-04-21T01:11:21.064Z"}
+{"level":"info","message":"MONGODB_URI:","timestamp":"2025-04-21T01:11:21.064Z"}
+{"level":"info","message":"CLIENT_URL:","timestamp":"2025-04-21T01:11:21.064Z"}
+{"level":"info","message":"GOOGLE_CLIENT_ID:","timestamp":"2025-04-21T01:11:21.064Z"}
+{"level":"info","message":"GOOGLE_CLIENT_SECRET:","timestamp":"2025-04-21T01:11:21.065Z"}
+{"level":"info","message":"GOOGLE_REDIRECT_URI:","timestamp":"2025-04-21T01:11:21.065Z"}
+{"level":"info","message":"Server is running on port 3001","timestamp":"2025-04-21T01:11:21.086Z"}
+{"email":{"queue":{"batchSize":5,"delayBetweenBatches":1000,"maxRetries":3},"templates":{"digest":"digest/template.html","feedback":"feedback/template.html","onboarding":"onboarding/template.html"}},"engagement":{"checkInterval":"1d","thresholds":{"high":75,"low":0,"medium":40}},"feedback":{"collectionInterval":"7d","reminderThreshold":"3d"},"level":"info","message":"Agent settings loaded:","timestamp":"2025-04-21T01:11:21.086Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2025-04-21T01:11:21.094Z"}
+{"level":"info","message":"No email tracking ID found in query:","query":{},"timestamp":"2025-04-21T01:15:41.634Z","url":"/google"}
+{"hasAccessToken":true,"hasRefreshToken":true,"level":"info","message":"Google OAuth callback received:","profileId":"110112595609586832703","timestamp":"2025-04-21T01:15:49.404Z"}
+{"hasRefreshToken":true,"level":"info","message":"Updated existing user credentials:","timestamp":"2025-04-21T01:15:49.416Z","userId":"68057497d1e85b316e03b998"}
+{"hasUser":true,"level":"info","message":"Checking for email tracking ID in callback:","query":{"authuser":"0","code":"4/0Ab_5qlnmTx6sCXCixHIznNePC59PLXxy6oaoKwutLHIz-IZj5y-XcaUUEVFkfEQoyHkxPA","hd":"u.northwestern.edu","prompt":"consent","scope":"email profile https://mail.google.com/ openid https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"},"sessionData":{"cookie":{"expires":"2025-04-22T01:15:49.417Z","httpOnly":true,"originalMaxAge":86400000,"path":"/","sameSite":"lax","secure":false},"passport":{"user":"68057497d1e85b316e03b998"}},"timestamp":"2025-04-21T01:15:49.418Z"}
+{"hasEmailTrackId":false,"hasUser":true,"level":"warn","message":"Missing required data for conversion tracking:","queryEmailTrackId":false,"queryParams":{"authuser":"0","code":"4/0Ab_5qlnmTx6sCXCixHIznNePC59PLXxy6oaoKwutLHIz-IZj5y-XcaUUEVFkfEQoyHkxPA","hd":"u.northwestern.edu","prompt":"consent","scope":"email profile https://mail.google.com/ openid https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"},"sessionData":{"cookie":{"expires":"2025-04-22T01:15:49.417Z","httpOnly":true,"originalMaxAge":86400000,"path":"/","sameSite":"lax","secure":false},"passport":{"user":"68057497d1e85b316e03b998"}},"sessionEmailTrackId":false,"timestamp":"2025-04-21T01:15:49.418Z"}
+{"fromEmailLink":false,"hasRefreshToken":true,"level":"info","message":"User logged in successfully:","timestamp":"2025-04-21T01:15:49.418Z","userId":"68057497d1e85b316e03b998"}
+{"level":"info","message":"No email tracking ID found in query:","query":{},"timestamp":"2025-04-21T01:15:51.408Z","url":"/google"}
+{"hasAccessToken":true,"hasRefreshToken":true,"level":"info","message":"Google OAuth callback received:","profileId":"110112595609586832703","timestamp":"2025-04-21T01:15:58.481Z"}
+{"hasRefreshToken":true,"level":"info","message":"Updated existing user credentials:","timestamp":"2025-04-21T01:15:58.489Z","userId":"68057497d1e85b316e03b998"}
+{"hasUser":true,"level":"info","message":"Checking for email tracking ID in callback:","query":{"authuser":"0","code":"4/0Ab_5qllJbyn06sRpqtXf67jkYUvB0jebL9DYLssOh1vphgk4aX3z2dkHy_039YoLGCw9Qg","hd":"u.northwestern.edu","prompt":"consent","scope":"email profile https://mail.google.com/ openid https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"},"sessionData":{"cookie":{"expires":"2025-04-22T01:15:58.491Z","httpOnly":true,"originalMaxAge":86400000,"path":"/","sameSite":"lax","secure":false},"passport":{"user":"68057497d1e85b316e03b998"}},"timestamp":"2025-04-21T01:15:58.492Z"}
+{"hasEmailTrackId":false,"hasUser":true,"level":"warn","message":"Missing required data for conversion tracking:","queryEmailTrackId":false,"queryParams":{"authuser":"0","code":"4/0Ab_5qllJbyn06sRpqtXf67jkYUvB0jebL9DYLssOh1vphgk4aX3z2dkHy_039YoLGCw9Qg","hd":"u.northwestern.edu","prompt":"consent","scope":"email profile https://mail.google.com/ openid https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"},"sessionData":{"cookie":{"expires":"2025-04-22T01:15:58.491Z","httpOnly":true,"originalMaxAge":86400000,"path":"/","sameSite":"lax","secure":false},"passport":{"user":"68057497d1e85b316e03b998"}},"sessionEmailTrackId":false,"timestamp":"2025-04-21T01:15:58.492Z"}
+{"fromEmailLink":false,"hasRefreshToken":true,"level":"info","message":"User logged in successfully:","timestamp":"2025-04-21T01:15:58.492Z","userId":"68057497d1e85b316e03b998"}

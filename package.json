@@ -15,7 +15,8 @@
     "build": "react-scripts build",
     "start-frontend": "PORT=3000 react-scripts start",
     "start-backend": "PORT=3001 nodemon src/agent/index.js",
-    "dev-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\""
+    "dev-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
