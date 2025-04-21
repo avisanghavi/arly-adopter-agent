@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const PgSession = require('pg-session-store')(session);
+const MongoStore = require('connect-mongo');
 const logger = require('../utils/logger');
 
 // Global error handler
@@ -21,7 +21,7 @@ console.log('Starting server initialization...');
 // Debug: Log environment variables (excluding sensitive values)
 console.log('Environment check:');
 console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
 console.log('GOOGLE_CLIENT_SECRET exists:', !!process.env.GOOGLE_CLIENT_SECRET);
 console.log('OPENAI_API_KEY exists:', !!process.env.OPENAI_API_KEY);
 
@@ -40,6 +40,7 @@ try {
   const { isAuthenticated } = require('../middleware/auth');
   const agentSettings = require('../../config/agent-settings.json');
   const emailTrackingRoutes = require('../../api/routes/email-tracking');
+  const mongoose = require('mongoose');
 
   console.log('All modules loaded successfully');
 
@@ -47,7 +48,8 @@ try {
   const requiredEnvVars = [
     'GOOGLE_CLIENT_ID',
     'GOOGLE_REDIRECT_URI',
-    'SESSION_SECRET'
+    'SESSION_SECRET',
+    'MONGODB_URI'
   ];
 
   const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
@@ -60,7 +62,7 @@ try {
   logger.info('Environment variables loaded:');
   logger.info('NODE_ENV:', process.env.NODE_ENV);
   logger.info('PORT:', process.env.PORT);
-  logger.info('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set');
+  logger.info('MONGODB_URI:', process.env.MONGODB_URI ? 'Set' : 'Not set');
   logger.info('CLIENT_URL:', process.env.CLIENT_URL);
   logger.info('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? 'Set' : 'Not set');
   logger.info('GOOGLE_REDIRECT_URI:', process.env.GOOGLE_REDIRECT_URI);
@@ -79,26 +81,24 @@ try {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Initialize database connection
-  const sequelize = require('../config/database');
-
-  // Test database connection
-  if (process.env.DATABASE_URL) {
-    sequelize.authenticate()
-      .then(() => {
-        logger.info('Database connection has been established successfully.');
-      })
-      .catch(err => {
-        logger.error('Unable to connect to the database:', err);
-        // Don't exit, just log the error
-      });
-  }
+  // Initialize MongoDB connection
+  mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+      logger.info('MongoDB connection established successfully.');
+    })
+    .catch(err => {
+      logger.error('Unable to connect to MongoDB:', err);
+    });
 
   // Session configuration
   const sessionConfig = {
-    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      collectionName: 'sessions'
+    }),
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
@@ -107,16 +107,6 @@ try {
       httpOnly: true
     }
   };
-
-  // Only use PostgreSQL session store if database is available
-  if (process.env.DATABASE_URL) {
-    sessionConfig.store = new PgSession({
-      pool: sequelize,
-      tableName: 'sessions'
-    });
-  } else {
-    logger.warn('Using in-memory session store. Sessions will be lost on server restart.');
-  }
 
   app.use(session(sessionConfig));
 
@@ -157,7 +147,7 @@ try {
   app.get('/health', (req, res) => {
     const status = {
       status: 'ok',
-      database: process.env.DATABASE_URL ? 'connected' : 'not_configured',
+      database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
       timestamp: new Date().toISOString()
     };
     res.json(status);

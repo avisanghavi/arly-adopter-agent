@@ -2,15 +2,15 @@ services:
   - type: web
     name: early-adopter-agent
     env: node
-    buildCommand: npm install --production
+    buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: DATABASE_URL
+      - key: MONGODB_URI
         fromDatabase:
-          name: early-adopter-db
+          name: early-adopter-mongodb
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
@@ -21,10 +21,6 @@ services:
       - key: GOOGLE_CLIENT_SECRET
         sync: false
       - key: GOOGLE_REDIRECT_URI
-        value: https://early-adopter-agent.onrender.com/api/auth/google/callback
-      - key: GOOGLE_USER_EMAIL
-        sync: false
-      - key: GOOGLE_REFRESH_TOKEN
         sync: false
       - key: OPENAI_API_KEY
         sync: false
@@ -41,11 +37,9 @@ services:
       - key: APP_URL
         value: https://early-adopter-agent.onrender.com
       - key: CLIENT_URL
-        value: https://early-adopter-agent.onrender.com
+        sync: false
 
 databases:
-  - name: early-adopter-db
-    databaseName: early_adopter_agent
-    user: early_adopter_user
+  - name: early-adopter-mongodb
     plan: free
-    ipAllowList: [] 
+    type: mongodb 
