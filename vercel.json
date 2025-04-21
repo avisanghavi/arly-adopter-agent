@@ -4,6 +4,11 @@
     {
       "src": "src/agent/index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
     }
   ],
   "routes": [
@@ -12,8 +17,28 @@
       "dest": "src/agent/index.js"
     },
     {
+      "src": "/health",
+      "dest": "src/agent/index.js"
+    },
+    {
+      "src": "^/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "^/asset-manifest.json",
+      "dest": "/asset-manifest.json"
+    },
+    {
       "src": "/(.*)",
-      "dest": "src/index.jsx"
+      "dest": "/index.html"
     }
   ],
   "env": {

@@ -6,19 +6,20 @@
   "main": "src/agent/index.js",
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "jest",
+    "start": "node src/agent/index.js",
+    "dev": "nodemon src/agent/index.js",
+    "test": "react-scripts test",
     "lint": "eslint .",
     "init-db": "node src/db/init-db.js",
     "test-db": "node src/db/test-db.js",
     "cleanup-db": "node src/db/cleanup-test-data.js",
-    "build": "echo 'No build step required'",
+    "build": "react-scripts build",
     "start-frontend": "PORT=3000 react-scripts start",
     "start-backend": "PORT=3001 nodemon src/agent/index.js",
     "dev-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
     "heroku-postbuild": "npm run build",
-    "vercel-build": "echo 'No build step required'"
+    "vercel-build": "npm run build",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
