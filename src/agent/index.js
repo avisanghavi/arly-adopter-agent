@@ -145,11 +145,38 @@ const initializeServer = async () => {
     // Health check endpoint
     app.get('/health', async (req, res) => {
       try {
+        // Check MongoDB connection
+        const dbState = mongoose.connection.readyState;
+        const dbStatus = {
+          0: 'disconnected',
+          1: 'connected',
+          2: 'connecting',
+          3: 'disconnecting',
+          99: 'uninitialized'
+        };
+
+        // Try to connect if not connected
+        if (dbState !== 1) {
+          try {
+            await connectDB();
+          } catch (dbError) {
+            logger.error('Health check DB connection error:', dbError);
+          }
+        }
+
         const status = {
           status: 'ok',
-          database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          environment: process.env.NODE_ENV,
+          isVercel: !!process.env.VERCEL,
+          database: {
+            status: dbStatus[mongoose.connection.readyState] || 'unknown',
+            readyState: mongoose.connection.readyState,
+            name: mongoose.connection.name || 'not connected',
+            host: mongoose.connection.host || 'not connected'
+          }
         };
+
         res.json(status);
       } catch (error) {
         logger.error('Health check error:', error);
