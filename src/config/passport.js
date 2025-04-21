@@ -69,23 +69,6 @@ passport.use(new GoogleStrategy({
       let user = await User.findOne({ googleId: profile.id });
       
       if (user) {
-        // If user exists but no new refresh token, revoke access and return error
-        if (!refreshToken && !user.emailCredentials?.refreshToken) {
-          logger.error('No refresh token available for existing user');
-          try {
-            // Revoke existing access
-            if (user.emailCredentials?.accessToken) {
-              await oauth2Client.revokeToken(user.emailCredentials.accessToken);
-            }
-            // Clear credentials
-            user.emailCredentials = undefined;
-            await user.save();
-          } catch (revokeError) {
-            logger.error('Error revoking token:', revokeError);
-          }
-          return done(new Error('No refresh token available. Please try logging in again.'));
-        }
-
         // Update email credentials
         user.emailCredentials = {
           accessToken,
