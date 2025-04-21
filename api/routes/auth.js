@@ -11,32 +11,43 @@ router.get('/google',
     // Store email tracking ID if present
     if (req.query.email_track) {
       logger.info('Storing email tracking ID in session:', {
-        emailTrackId: req.query.email_track,
-        query: req.query
+        emailTrackId: req.query.email_track
       });
       req.session.emailTrackId = req.query.email_track;
     }
     
     // Force removal of existing session to ensure fresh OAuth flow
-    req.logout((err) => {
-      if (err) {
-        logger.error('Error during logout:', err);
-        return next(err);
-      }
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          logger.error('Error destroying session:', err);
+          return next(err);
+        }
+        next();
+      });
+    } else {
       next();
-    });
+    }
   },
-  passport.authenticate('google', {
-    scope: [
-      'profile',
-      'email',
-      'https://www.googleapis.com/auth/gmail.send',
-      'https://www.googleapis.com/auth/gmail.compose',
-      'https://mail.google.com/'
-    ],
-    accessType: 'offline',
-    prompt: 'consent'
-  })
+  (req, res, next) => {
+    try {
+      passport.authenticate('google', {
+        scope: [
+          'profile',
+          'email',
+          'https://www.googleapis.com/auth/gmail.send',
+          'https://www.googleapis.com/auth/gmail.compose',
+          'https://mail.google.com/'
+        ],
+        accessType: 'offline',
+        prompt: 'consent',
+        session: true
+      })(req, res, next);
+    } catch (error) {
+      logger.error('Error in Google auth:', error);
+      res.redirect('/login?error=auth_error');
+    }
+  }
 );
 
 // Google OAuth callback route
@@ -48,7 +59,7 @@ router.get('/google/callback',
           error: err.message,
           stack: err.stack
         });
-        return res.redirect('/login?error=' + encodeURIComponent(err.message));
+        return res.redirect(`/login?error=${encodeURIComponent(err.message)}`);
       }
       
       if (!user) {
@@ -64,7 +75,7 @@ router.get('/google/callback',
         
         try {
           // Track conversion if user came from email link
-          const emailTrackId = req.session.emailTrackId || req.query.email_track;
+          const emailTrackId = req.session?.emailTrackId || req.query.email_track;
           
           if (emailTrackId) {
             try {
@@ -75,8 +86,15 @@ router.get('/google/callback',
               });
               
               // Clear the tracking ID from session
-              delete req.session.emailTrackId;
-              await req.session.save();
+              if (req.session) {
+                delete req.session.emailTrackId;
+                await new Promise((resolve, reject) => {
+                  req.session.save((err) => {
+                    if (err) reject(err);
+                    else resolve();
+                  });
+                });
+              }
             } catch (trackingError) {
               logger.error('Error tracking signup conversion:', {
                 error: trackingError.message,
@@ -99,15 +117,20 @@ router.get('/google/callback',
 
 // Check authentication status
 router.get('/status', (req, res) => {
-  res.json({
-    isAuthenticated: req.isAuthenticated(),
-    user: req.user ? {
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      picture: req.user.picture
-    } : null
-  });
+  try {
+    res.json({
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user ? {
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email,
+        picture: req.user.picture
+      } : null
+    });
+  } catch (error) {
+    logger.error('Error checking auth status:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Logout route
@@ -129,13 +152,17 @@ router.post('/logout', async (req, res) => {
       }
     }
 
-    req.logout((err) => {
-      if (err) {
-        logger.error('Error during logout:', err);
-        return res.status(500).json({ error: 'Logout failed' });
-      }
+    if (req.session) {
+      req.session.destroy((err) => {
+        if (err) {
+          logger.error('Error destroying session:', err);
+          return res.status(500).json({ error: 'Logout failed' });
+        }
+        res.json({ message: 'Logged out successfully' });
+      });
+    } else {
       res.json({ message: 'Logged out successfully' });
-    });
+    }
   } catch (error) {
     logger.error('Error during logout:', error);
     res.status(500).json({ error: 'Logout failed' });

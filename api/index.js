@@ -15,6 +15,9 @@ const usersRoutes = require('./routes/users');
 
 const app = express();
 
+// Trust proxy headers for Vercel
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors({
   origin: process.env.CLIENT_URL || 'https://the-agenttoend-agents-p9ls3w860-avisanghavis-projects.vercel.app',
@@ -26,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
-app.use(session({
+const sessionConfig = {
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -34,7 +37,10 @@ app.use(session({
     mongoUrl: process.env.MONGODB_URI,
     ttl: 24 * 60 * 60, // 1 day
     autoRemove: 'native',
-    touchAfter: 24 * 3600 // time period in seconds
+    touchAfter: 24 * 3600, // time period in seconds
+    crypto: {
+      secret: process.env.SESSION_SECRET
+    }
   }),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
@@ -43,8 +49,11 @@ app.use(session({
     domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined,
     httpOnly: true
   },
+  name: 'sessionId',
   proxy: true // trust the reverse proxy
-}));
+};
+
+app.use(session(sessionConfig));
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -68,7 +77,12 @@ app.get('/', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  logger.error('Unhandled error:', err);
+  logger.error('Unhandled error:', {
+    error: err.message,
+    stack: err.stack,
+    path: req.path,
+    method: req.method
+  });
   res.status(500).json({ error: 'Internal server error', details: err.message });
 });
 
