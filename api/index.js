@@ -3,6 +3,7 @@ const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
 const logger = require('../src/utils/logger');
+const MongoStore = require('connect-mongo');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -15,17 +16,25 @@ const usersRoutes = require('./routes/users');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'https://the-agenttoend-agents-p9ls3w860-avisanghavis-projects.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-session-secret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    ttl: 24 * 60 * 60 // 1 day
+  }),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
@@ -33,6 +42,9 @@ app.use(session({
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Import and configure passport
+require('../src/config/passport');
 
 // Routes
 app.use('/api/auth', authRoutes);

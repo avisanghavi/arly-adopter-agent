@@ -9,12 +9,10 @@ import {
 } from '@mui/material';
 import { Google as GoogleIcon } from '@mui/icons-material';
 
-const Login = () => {
+const Login = ({ apiUrl }) => {
   const handleGoogleLogin = () => {
     try {
-      // Use window.location.origin to get the current domain
-      const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
-      window.location.href = `${backendUrl}/api/auth/google`;
+      window.location.href = `${apiUrl}/api/auth/google`;
     } catch (error) {
       console.error('Login error:', error);
     }
@@ -63,7 +61,7 @@ const Login = () => {
               boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
             }}
           >
-            Sign in with Google
+            SIGN IN WITH GOOGLE
           </Button>
 
           <Typography variant="caption" color="text.secondary" align="center">
